@@ -19,7 +19,7 @@ logs:
 
 ## Tricks 
 
-Get the latest CentOS AMI by running :
+Get the latest CentOS AMI id by running :
 
 ```
 aws --region eu-west-1 ec2 describe-images \
