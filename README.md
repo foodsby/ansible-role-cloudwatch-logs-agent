@@ -1,10 +1,10 @@
 # ansible-cloudwatch-logs-agent
 
-An Ansible role to install AWS Cloudwatch Logs agent on Ubuntu 16.04
+An Ansible role to install AWS Cloudwatch Logs agent on CentOS 7 & CentOS 6
 
 ## Prerequisites
 
-This role assumes you run Ubuntu 16.04 on EC2.
+This role assumes you run an AMI provide by CentOS on AWS.
 
 ## Usage
 
@@ -17,11 +17,17 @@ logs:
     group_name: syslog
 ```
 
-## Author
+## Tricks 
 
-Mijndert Stuij <mijndert@mijndertstuij.nl>
+Get the latest CentOS AMI by running :
 
-Inspired by [https://github.com/christianewillman/ansible-aws-cloudwatch-logs](https://github.com/christianewillman/ansible-aws-cloudwatch-logs)
+```
+aws --region eu-west-1 ec2 describe-images \
+    --owners aws-marketplace \
+    --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce \
+    --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' \
+    --output 'text'
+```
 
 ## License
 
