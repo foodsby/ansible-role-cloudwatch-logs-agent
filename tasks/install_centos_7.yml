@@ -16,7 +16,7 @@
     url: https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py
 
 - name: Install the CloudWatch Logs agent
-  shell: python /tmp/awslogs-agent-setup.py -n -r us-east-1 -c /tmp/awslogs.conf
+  shell: python /tmp/awslogs-agent-setup.py -n -r {{ aws_region }} -c /tmp/awslogs.conf
 
 - name: Copy systemd unit file
   copy:
@@ -27,13 +27,12 @@
     mode=644
     backup=yes
 
-- name: Enable the service
+- name: Refresh systemctl service
+  shell: "systemctl daemon-reload"
+
+- name: Enable awslogs service
   shell: "systemctl enable awslogs.service"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
 
-- name: Enable the service
-  service: name=awslogs enabled=yes
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
 
-- name: Start the service
+- name: Start awslogs service
   service: name=awslogs state=started
