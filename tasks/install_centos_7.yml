@@ -1,11 +1,12 @@
 ---
-- name: Put a config file in place
-  template:
+- name: Copy a config file in place
+  copy:
+    src: awslogs.conf
     dest: /tmp/awslogs.conf
     group: root
     mode: 0600
     owner: root
-    src: awslogs.conf.j2
+    src: awslogs.conf
 
 - name: Download the installer
   get_url:
@@ -20,12 +21,12 @@
 
 - name: Copy systemd unit file
   copy:
-    src=awslogs.service
-    dest=/lib/systemd/system/awslogs.service
-    owner=root
-    group=root
-    mode=644
-    backup=yes
+    src: awslogs.service
+    dest: /lib/systemd/system/awslogs.service
+    owner: root
+    group: root
+    mode: 644
+    backup: yes
 
 - name: Refresh systemctl service
   shell: "systemctl daemon-reload"
@@ -33,6 +34,8 @@
 - name: Enable awslogs service
   shell: "systemctl enable awslogs.service"
 
-
 - name: Start awslogs service
-  service: name=awslogs state=started
+  service:
+    name: awslogs
+    state: started
+    enabled: yes
