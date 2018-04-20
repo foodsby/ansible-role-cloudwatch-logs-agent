@@ -6,7 +6,6 @@
     group: root
     mode: 0600
     owner: root
-    src: awslogs.conf
 
 - name: Download the installer
   get_url:
