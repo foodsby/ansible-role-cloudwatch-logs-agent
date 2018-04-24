@@ -1,6 +1,7 @@
 # ansible-cloudwatch-logs-agent
 
-An Ansible role to install AWS Cloudwatch Logs agent on CentOS 7 & CentOS 6
+An Ansible role to install AWS Cloudwatch Logs agent on CentOS 7 & CentOS 6 in case you can not use Amazon Linux. 
+
 
 ## Prerequisites
 
