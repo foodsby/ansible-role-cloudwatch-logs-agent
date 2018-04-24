@@ -12,7 +12,7 @@ Include the folder in your roles directory.
 
 If you want to run this playbook locally you can do the following.
 
-clone the repository
+Clone the repository
 
 ```shell
 git clone https://github.com/bitintheskud/ansible-role-cloudwatch-logs-agent.git
