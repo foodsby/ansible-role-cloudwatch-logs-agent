@@ -31,6 +31,10 @@ Run ansible-playbook
 ansible-playbook  -i "localhost," -c local playbook.yml
 ```
 
+You need to attach a role to your instance to access AWS cloudwatch. 
+
+see: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html
+
 ## Tricks 
 
 Get the latest CentOS AMI id by running :
