@@ -8,13 +8,27 @@ This role assumes you run an AMI provide by CentOS on AWS.
 
 ## Usage
 
-Include the folder in your roles directory. You can add log files to the configuration in, for example, your group_vars, like this:
+Include the folder in your roles directory. 
 
+If you want to run this playbook locally you can do the following.
+
+clone the repository
+
+```shell
+git clone https://github.com/bitintheskud/ansible-role-cloudwatch-logs-agent.git
+cat > playbook.yml
+---
+- name: Test cloudwatch role
+  hosts: 127.0.0.1
+  become: yes
+  roles:
+    - { role: '<YOUR PATH>/ansible-role-cloudwatch-logs-agent' }
 ```
-logs:
-  - file: /var/log/syslog
-    format: "%b %d %H:%M:%S"
-    group_name: syslog
+
+Run ansible-playbook
+
+```shell
+ansible-playbook  -i "localhost," -c local playbook.yml
 ```
 
 ## Tricks 
