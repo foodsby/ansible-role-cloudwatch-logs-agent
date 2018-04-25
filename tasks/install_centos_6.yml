@@ -1,6 +1,6 @@
 ---
 - name: Put a config file in place
-  template:
+  copy:
     dest: /tmp/awslogs.conf
     group: root
     mode: 0600
