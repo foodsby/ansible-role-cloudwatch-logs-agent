@@ -37,10 +37,10 @@ script:
   # Test role.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_test/tests/test.yml -vvv'
 
-  # post check
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm httpd -v'
+  # post check (find a valuable post test)
+  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ???'
 
-  - 'env TARGET_CONTAINER_ID="$(cat ${container_id})" bundle exec rspec'
+  #- 'env TARGET_CONTAINER_ID="$(cat ${container_id})" bundle exec rspec'
 
   # Test role idempotence.
   - >
