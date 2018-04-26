@@ -3,7 +3,7 @@
 # This will be use to place install file.
 - name: Create install directory
   file:
-    path: {{ awslogs_install_dir }}
+    path: "{{ awslogs_install_dir }}"
     state: directory    
     owner: root
     group: root
@@ -12,7 +12,7 @@
 - name: Copy config file in place
   copy:
     src: awslogs.conf
-    dest: {{ awslogs_install_dir }}//awslogs.conf
+    dest: "{{ awslogs_install_dir }}/awslogs.conf"
     group: root
     mode: 0600
     owner: root
@@ -20,11 +20,11 @@
 
 - name: Download the installer
   get_url:
-    dest: /v{{ awslogs_install_dir }}/awslogs-agent-setup.py
+    dest: "{{ awslogs_install_dir }}/awslogs-agent-setup.py"
     group: root
     owner: root
     mode: 0600
-    url: {{ awslogs_install_url }}
+    url: "{{ awslogs_install_url }}"
   register: install_script
 
 - name: Check if aws log is already running
@@ -34,7 +34,7 @@
   ignore_errors: yes
 
 - name: Run the install script provided by AWS. 
-  shell: python {{ awslogs_install_dir }}/awslogs-agent-setup.py -n -r {{ aws_region }} -c /tmp/awslogs.conf
+  shell: python {{ awslogs_install_dir }}/awslogs-agent-setup.py -n -r "{{ aws_region }}" -c "{{ awslogs_install_dir }}/awslogs.conf" 
   when: aws_logs_process.rc != 0 or config_file.changed or install_script.changed
 
 - name: Copy systemd unit file
