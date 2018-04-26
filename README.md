@@ -1,6 +1,8 @@
-# Ansible Role for AWS CloudWatch agent. 
+# Ansible Role for AWS CloudWatch Logs agent
 
 [![Build Status](https://travis-ci.org/bitintheskud/ansible-role-cloudwatch-logs-agent.svg?branch=master)](https://travis-ci.org/bitintheskud/ansible-role-cloudwatch-logs-agent)
+
+## Introduction
 
 An Ansible role to install AWS Cloudwatch Logs agent on CentOS.
 
