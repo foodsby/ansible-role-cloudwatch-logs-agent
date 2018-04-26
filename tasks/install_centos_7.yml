@@ -49,8 +49,17 @@
   shell: "systemctl daemon-reload"
   when : systemd_file.changed
 
-- name: Enable & start awslogs service
+- name: Start awslogs service
+  service:
+    name: awslogs
+    state: started
+
+# service module does not enable when systemd and init are installed.
+# Need the "use:" directive as workaround
+# https://github.com/ansible/ansible-modules-core/issues/3764
+#
+- name: Enable awslogs service
   service:
     name: awslogs
     enabled: yes
-    state: started
+    use: service 
