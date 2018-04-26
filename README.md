@@ -7,6 +7,16 @@ An Ansible role to install AWS Cloudwatch Logs agent on CentOS 7 & CentOS 6 in c
 
 This role assumes you run an AMI provide by CentOS on AWS.
 
+To find the latest AMI from Centos for your AWS region you can run the command below.
+
+```
+aws --region eu-west-1 ec2 describe-images \
+    --owners aws-marketplace \
+    --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce \
+    --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' \
+    --output 'text'
+```
+
 ## Usage
 
 Include the folder in your roles directory. 
@@ -17,6 +27,10 @@ Clone the repository
 
 ```shell
 git clone https://github.com/bitintheskud/ansible-role-cloudwatch-logs-agent.git
+```
+Create a local ansible playbook with the role included. 
+
+```Shell
 cat > playbook.yml
 ---
 - name: Test cloudwatch role
@@ -32,21 +46,15 @@ Run ansible-playbook
 ansible-playbook  -i "localhost," -c local playbook.yml
 ```
 
-You need to attach a role to your instance to access AWS cloudwatch. 
+You need to attach a role to your instance to send message to AWS Cloudwatch. 
 
 see: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html
 
-## Tricks 
 
-Get the latest CentOS AMI id by running :
+## What's next 
 
-```
-aws --region eu-west-1 ec2 describe-images \
-    --owners aws-marketplace \
-    --filters Name=product-code,Values=aw0evgkw8e5c1q413zgy5pjce \
-    --query 'sort_by(Images, &CreationDate)[-1].[ImageId]' \
-    --output 'text'
-```
+- Test redhat 7 distribution with this role. 
+
 
 ## License
 
