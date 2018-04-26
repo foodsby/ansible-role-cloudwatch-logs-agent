@@ -1,11 +1,21 @@
 # ansible-cloudwatch-logs-agent
 
-An Ansible role to install AWS Cloudwatch Logs agent on CentOS 7 & CentOS 6 in case you can not use Amazon Linux. 
+[![Build Status](https://travis-ci.org/bitintheskud/ansible-role-cloudwatch-logs-agent.svg?branch=master)](https://travis-ci.org/bitintheskud/ansible-role-cloudwatch-logs-agent)
 
+An Ansible role to install AWS Cloudwatch Logs agent on CentOS.
+
+In case you can't afford to run Amazon Linux, this role will install the cloudwatch agent on centos.
+
+Current status :
+
+  -  CentOS 7 --> Tested.
+  -  CentOS 6 --> Not tested (Contributor welcome !)
+
+Please see: https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html
 
 ## Prerequisites
 
-This role assumes you run an AMI provide by CentOS on AWS.
+This role assumes you run an AMI provide by CentOS on AWS market place (free of charge).
 
 To find the latest AMI from Centos for your AWS region you can run the command below.
 

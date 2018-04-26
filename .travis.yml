@@ -2,10 +2,11 @@
 sudo: required
 
 env:
-  - distribution: centos
-    version: 6
-    init: /sbin/init
-    run_opts: ""
+  # Not test on centos 6.
+  #- distribution: centos
+  #  version: 6
+  #  init: /sbin/init
+  #  run_opts: ""
   - distribution: centos
     version: 7
     init: /usr/lib/systemd/systemd
@@ -36,11 +37,6 @@ script:
 
   # Test role.
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_test/tests/test.yml -vvv'
-
-  # post check (find a valuable post test)
-  #- 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ???'
-
-  #- 'env TARGET_CONTAINER_ID="$(cat ${container_id})" bundle exec rspec'
 
   # Test role idempotence.
   - >
