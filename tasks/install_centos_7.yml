@@ -1,15 +1,26 @@
 ---
-- name: Copy a config file in place
+
+# This will be use to place install file.
+- name: Create install directory
+  file:
+    path: /var/awslogs/install
+    state: directory    
+    recurse: yes
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy config file in place
   copy:
     src: awslogs.conf
-    dest: /tmp/awslogs.conf
+    dest: /var/awslogs/install//awslogs.conf
     group: root
     mode: 0600
     owner: root
 
 - name: Download the installer
   get_url:
-    dest: /tmp/awslogs-agent-setup.py
+    dest: /var/awslogs/install/awslogs-agent-setup.py
     group: root
     owner: root
     mode: 0600
