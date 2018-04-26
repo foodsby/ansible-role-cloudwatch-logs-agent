@@ -1,4 +1,4 @@
-# ansible-cloudwatch-logs-agent
+# Ansible Role for AWS CloudWatch agent. 
 
 [![Build Status](https://travis-ci.org/bitintheskud/ansible-role-cloudwatch-logs-agent.svg?branch=master)](https://travis-ci.org/bitintheskud/ansible-role-cloudwatch-logs-agent)
 
