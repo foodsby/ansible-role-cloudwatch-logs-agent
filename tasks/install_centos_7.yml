@@ -16,7 +16,7 @@
     url: https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py
 
 - name: Check if aws log is already running
-  shell: ps aux | grep '[a]ws logs push'
+  shell: ps aux | grep "[a]ws logs push"
   register: aws_logs_process
   changed_when: False
 
