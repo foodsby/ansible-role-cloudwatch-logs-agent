@@ -37,19 +37,6 @@
   shell: python "{{ awslogs_install_dir }}/awslogs-agent-setup.py" -n -r "{{ aws_region }}" -c "{{ awslogs_install_dir }}/awslogs.conf" 
   when: aws_logs_process.rc != 0 or config_file.changed or install_script.changed
 
-- name: Copy systemd unit file
-  copy:
-    src: awslogs.service
-    dest: /lib/systemd/system/awslogs.service
-    owner: root
-    group: root
-    mode: 644
-  register: systemd_file
-
-- name: Refresh systemctl service
-  shell: "systemctl daemon-reload"
-  when : systemd_file.changed
-
 - name: Start awslogs service
   service:
     name: awslogs
