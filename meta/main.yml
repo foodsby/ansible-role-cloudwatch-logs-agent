@@ -1,0 +1,16 @@
+Galaxy_info:
+  author: Alban MUSSI
+  description: "An Ansible role to install AWS Cloudwatch Logs agent on CentOS 7"
+  license: MIT
+  min_ansible_version: 2.2
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - amazon
+    - aws
+    - centos
+    - cloudwatch
