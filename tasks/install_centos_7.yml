@@ -4,7 +4,7 @@
 - name: Create install directory
   file:
     path: "{{ awslogs_install_dir }}"
-    state: directory    
+    state: directory
     owner: root
     group: root
     mode: 0755
@@ -33,8 +33,8 @@
   changed_when: False
   ignore_errors: yes
 
-- name: Run the install script provided by AWS. 
-  shell: python "{{ awslogs_install_dir }}/awslogs-agent-setup.py" -n -r "{{ aws_region }}" -c "{{ awslogs_install_dir }}/awslogs.conf" 
+- name: Run the install script provided by AWS.
+  shell: python "{{ awslogs_install_dir }}/awslogs-agent-setup.py" -n -r "{{ aws_region }}" -c "{{ awslogs_install_dir }}/awslogs.conf"
   when: aws_logs_process.rc != 0 or config_file.changed or install_script.changed
 
 - name: Copy systemd unit file
@@ -43,7 +43,7 @@
     dest: /lib/systemd/system/awslogs.service
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   register: systemd_file
 
 - name: Refresh systemctl service
@@ -63,4 +63,4 @@
   service:
     name: awslogs
     enabled: yes
-    use: service 
+    use: service
