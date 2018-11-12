@@ -18,6 +18,33 @@
     owner: root
   register: config_file
 
+- name: Check for md5sum of previously downloaded installer
+  stat:
+    path: "{{ awslogs_install_dir }}/awslogs-agent-setup.py.md5sum"
+  register: old_md5sum_result
+
+- name: Get md5sum of previously downloaded install script if it exists
+  set_fact:
+    previous_installer_md5sum: "{{ lookup('file', awslogs_install_dir + '/awslogs-agent-setup.py.md5sum') | default('') }}"
+  when: old_md5sum_result.stat.exists
+
+- name: Set empty md5sum if old md5sum doesn't exist
+  set_fact:
+    previous_installer_md5sum: 'empty'
+  when: not old_md5sum_result.stat.exists
+
+- name: Register md5sum of upstream install script via HEAD request
+  uri:
+    url: "{{ awslogs_install_url }}"
+    method: HEAD
+  register: install_script_upstream_response
+  when: awslogs_enforce_latest
+
+- name: Force download of new install script if upstream md5sum has changed
+  set_fact:
+    awslogs_force_download: true
+  when: awslogs_enforce_latest and previous_installer_md5sum != install_script_upstream_response.etag
+
 - name: Download the installer
   get_url:
     dest: "{{ awslogs_install_dir }}/awslogs-agent-setup.py"
@@ -25,7 +52,14 @@
     owner: root
     mode: 0600
     url: "{{ awslogs_install_url }}"
+    force: "{{ awslogs_force_download | default('false') }}"
   register: install_script
+
+- name: Save installer md5sum to disk
+  copy:
+    content: "{{ install_script.md5sum }}"
+    dest: "{{ awslogs_install_dir }}/awslogs-agent-setup.py.md5sum"
+  when: install_script.changed
 
 - name: Check if aws log is already running
   shell: ps aux | grep "[a]ws logs push"
