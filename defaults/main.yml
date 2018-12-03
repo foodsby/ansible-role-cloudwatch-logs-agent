@@ -2,4 +2,5 @@
 awslogs_install_dir: "/var/awslogs/install"
 awslogs_install_url: "https://s3.amazonaws.com/aws-cloudwatch/downloads/latest/awslogs-agent-setup.py"
 awslogs_enforce_latest: false
+awslogs_service_state: started
 aws_region: "eu-west-1"
