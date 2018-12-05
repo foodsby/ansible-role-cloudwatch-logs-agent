@@ -87,7 +87,7 @@
 - name: Start awslogs service
   service:
     name: awslogs
-    state: started
+    state: "{{ awslogs_service_state }}"
 
 # service module does not enable when systemd and init are installed.
 # Need the "use:" directive as workaround
