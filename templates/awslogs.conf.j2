@@ -124,7 +124,13 @@ state_file = /var/awslogs/state/agent-state
 {% for log_file in awslogs_log_files %}
 [{{ log_file.file }}]
 file = {{ log_file.file }}
+{% if log_file.log_group_name is defined %}
 log_group_name = {{ log_file.log_group_name }}
+{% elif awslogs_default_log_group_name is defined %}
+log_group_name = {{ awslogs_default_log_group_name }}
+{% else %}
+log_group_name = {{ log_file.file }}
+{% endif %}
 {% if log_file.log_stream_name is defined %}
 log_stream_name = {{ log_file.log_stream_name }}
 {% else %}
