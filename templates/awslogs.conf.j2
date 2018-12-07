@@ -121,10 +121,38 @@ state_file = /var/awslogs/state/agent-state
 # ----------------------------------------------------------------------------------------------------------------------
 #  %c           Locale's appropriate date and time representation.                                      Tue Aug 16 21:30:00 1988 (en_US)
 # ----------------------------------------------------------------------------------------------------------------------
-[/var/log/messages]
-datetime_format = %b %d %H:%M:%S
-file = /var/log/messages
-buffer_duration = 5000
+{% for log_file in awslogs_log_files %}
+[{{ log_file.file }}]
+file = {{ log_file.file }}
+log_group_name = {{ log_file.log_group_name }}
+{% if log_file.log_stream_name is defined %}
+log_stream_name = {{ log_file.log_stream_name }}
+{% else %}
 log_stream_name = {instance_id}
-initial_position = start_of_file
-log_group_name = /var/log/messages
+{% endif %}
+{% if log_file.datetime_format is defined %}
+datetime_format = {{ log_file.datetime_format }}
+{% endif %}
+{% if log_file.buffer_duration is defined %}
+buffer_duration = {{ log_file.buffer_duration }}
+{% endif %}
+{% if log_file.batch_count is defined %}
+batch_count = {{ log_file.batch_count }}
+{% endif %}
+{% if log_file.batch_size is defined %}
+batch_size = {{ log_file.batch_size }}
+{% endif %}
+{% if log_file.initial_position is defined %}
+initial_position = {{ log_file.initial_position }}
+{% endif %}
+{% if log_file.file_fingerprint_lines is defined %}
+file_fingerprint_lines = {{ log_file.file_fingerprint_lines }}
+{% endif %}
+{% if log_file.encoding is defined %}
+encoding = {{ log_file.encoding }}
+{% endif %}
+{% if log_file.multi_line_start_pattern is defined %}
+multi_line_start_pattern = {{ log_file.multi_line_start_pattern }}
+{% endif %}
+
+{% endfor %}

@@ -1,0 +1,9 @@
+---
+- name: Template config file
+  template:
+    src: awslogs.conf.j2
+    dest: "{{ awslogs_install_dir }}/awslogs.conf"
+    group: root
+    mode: 0644
+    owner: root
+  register: config_file

@@ -9,14 +9,8 @@
     group: root
     mode: 0755
 
-- name: Copy config file in place
-  copy:
-    src: awslogs.conf
-    dest: "{{ awslogs_install_dir }}/awslogs.conf"
-    group: root
-    mode: 0600
-    owner: root
-  register: config_file
+- name: Configure
+  include: configure.yml
 
 - name: Check for md5sum of previously downloaded installer
   stat:
